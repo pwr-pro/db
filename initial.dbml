@@ -1,0 +1,127 @@
+// User
+table "user" {
+  id serial [pk]
+  email varchar(128)
+  password varchar
+}
+
+table role {
+  id serial [pk, ref: <> user.id]
+  name varchar(32)
+}
+
+table brand_subscription {
+  id serial [pk]
+  user_id int [ref: - user.id]
+  brand_id int [ref: - brand.id]
+}
+
+table phone_subscription {
+  id serial [pk]
+  user_id int [ref: - user.id]
+  phone_id int [ref: - phone.id]
+}
+
+
+
+// Comment
+table comment {
+  id serial [pk, ref: <> phone.id]
+  author_id int [ref: > user.id]
+  score float8
+  reaction_amount int
+}
+
+// Phone
+table phone {
+  id serial [pk]
+  release date
+  availability enum 
+  sim int
+  height float8
+  width float8
+  thickness float8
+  weight float8
+  ip_certificate enum
+  color varchar(64)
+  material int
+  os int
+  chipset int // TODO
+  ram int //just number in MB
+  storage int // MB
+  resolution table
+  hdr bool
+  notch enum 
+  refresh_rate int
+  jack_port bool
+  dual_speakers bool
+  wifi varchar(10) //802.11ax
+  bluetooth float8 
+  gps bool
+  nfc bool
+  battery_capacity int
+  removable_battery bool
+  wireless_charging bool
+  connector enum // change for table?
+}
+
+//table connector {
+//  id serial [pk, ref: <> phone.id]
+//}
+
+table resolution {
+  id serial [pk, ref: <> phone.id, 
+    ref: < camera.video_resolution, 
+    ref: < camera.image_resolution]
+  name varchar(32)
+}
+
+table os {
+  id serial [pk, ref: <> phone.id] 
+  // poprzednie wersje ale pokazywać najnowszą?
+  // albo po prostu os one-many phones
+  name varchar(64)
+  version varchar(128)
+  // Przerobić na coś innego?
+  // validate with trigger?
+}
+table sim {
+  id serial [pk, ref: <> phone.id]
+  name varchar(32)
+}
+
+table network {
+  id serial [pk, ref: <> phone.id]
+  type enum
+  name varchar(32)
+}
+
+table back_material {
+  id serial [pk, ref: < phone.id]
+  name varchar(64)
+}
+
+table brand {
+  id serial [pk, ref: > phone.id]
+  name varchar(64)
+}
+
+table phone_images {
+  id serial [pk,ref: <> phone.id]
+  path varchar(64)
+  type enum
+  //material int [null, ref: > back_material.id]
+  //// chyba wywalić material żeby była postać któraś NF
+}
+
+table camera {
+  id serial [pk,ref: <> phone.id]
+  resolution varchar(16)
+  ois bool
+  f_number float8
+  type enum //{front,main,ultrawide,telephoto}
+  video_resolution int
+  image_resolution int
+}
+
+
