@@ -1,1 +1,0 @@
-select * from phones.public.phone
