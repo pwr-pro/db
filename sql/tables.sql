@@ -22,17 +22,17 @@ create table "brand_subscription"
 );
 create table "chipset" (
                            chipset_id serial primary key,
-                           "name" varchar(23) unique
+                           "name" varchar(64) unique
 );
 create table "gpu" (
                        "gpu_id" serial primary key,
-                       "name" varchar(64)
+                       "name" varchar(64) unique
 );
 create table "phone"
 (
-    phone_id          serial PRIMARY KEY,
-    "model"             varchar(64) NOT NULL,
-    "brand_id"          int references brand (brand_id),
+    phone_id          serial primary key,
+    "model"             varchar(64) not null unique,
+    "brand_id"          int references brand (brand_id) not null,
     "release"           date,
     "height"            float4,
     "width"             float4,
