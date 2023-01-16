@@ -1,0 +1,13 @@
+# FastAPI
+fastapi
+uvicorn[standard]
+
+jinja2 			# templates
+python-multipart 	# for handling forms and security
+
+# Auth
+passlib[bcrypt] 	# password hashing
+PyJWT 			# JWT (en|de)coding
+
+# PostgreSQL
+psycopg2-binary		# postgresql connection
