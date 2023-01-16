@@ -1,3 +1,12 @@
+# PyCharm
 .idea/
+
+# PostgresQL Container
 pgdata/
+
+# Unwanted Python Files
+*.pyc
+venv/
+
+# Extra
 TODO.md
